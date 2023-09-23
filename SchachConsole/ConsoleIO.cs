@@ -13,15 +13,14 @@ namespace SchachConsole
     {
         //Excludes the space needed for labelling: Width+2, Height+1
         private readonly Size consoleBoardSize = new Size(49, 33);
-        private readonly int consoleBoardStartXCoordinate = 2; //Start X coordinate of table
-        private readonly int consoleBoardStartYCoordinate = 1; //Start Y coordinate of table
+        private readonly Point consoleBoardStart = new Point(2, 1);
         private readonly Point firstField = new Point(3, 2);
 
         public ConsoleIO()
         {
 #pragma warning disable CA1416 // Validate platform compatibility
-            Console.SetWindowSize(consoleBoardSize.Width + 2, consoleBoardSize.Height + 4);
-            Console.SetBufferSize(consoleBoardSize.Width + 20, consoleBoardSize.Height + 40);
+            Console.SetWindowSize(consoleBoardSize.Width + 2, consoleBoardSize.Height + 6);
+            Console.SetBufferSize(consoleBoardSize.Width + 20, consoleBoardSize.Height + 45);
 #pragma warning restore CA1416 // Validate platform compatibility
         }
 
@@ -36,7 +35,7 @@ namespace SchachConsole
 
             // Fill board with "0" (border) &
             // Write vertical labels
-            for (int i = consoleBoardStartYCoordinate; i <= consoleBoardSize.Height; i++)
+            for (int i = consoleBoardStart.Y; i <= consoleBoardSize.Height; i++)
             {
                 Console.SetCursorPosition(0, i);
 
@@ -74,7 +73,7 @@ namespace SchachConsole
             }
 
 
-            Console.SetCursorPosition(0, consoleBoardStartYCoordinate + consoleBoardSize.Height);
+            Console.SetCursorPosition(0, consoleBoardStart.Y + consoleBoardSize.Height);
             SetConsoleColor(white: false);
             Console.WriteLine(new String(' ', consoleBoardSize.Width + 2));
         }
@@ -87,23 +86,27 @@ namespace SchachConsole
 
         public string PromptInput(bool promptForWhite)
         {
-            Console.SetCursorPosition(0, consoleBoardStartYCoordinate + consoleBoardSize.Height + 1);
-            SetConsoleColor(white: promptForWhite);
-            if (promptForWhite)
-            {
-                Console.WriteLine("WEISS: Geben Sie den nächsten Zug ein:");
-            }
-            else
-            {
-                Console.WriteLine("SCHWARZ: Geben Sie den nächsten Zug ein:");
-            }
-            SetConsoleColor(white: !promptForWhite);
-
-           string input = "";
+            string input = "";
+            Zug z;
             do
             {
+                Console.SetCursorPosition(0, consoleBoardStart.Y + consoleBoardSize.Height + 2);
+                SetConsoleColor(white: promptForWhite);
+                if (promptForWhite)
+                {
+                    Console.WriteLine("WEISS: Geben Sie den nächsten Zug ein:"); //TODO: extract strings into lang file
+                }
+                else
+                {
+                    Console.WriteLine("SCHWARZ: Geben Sie den nächsten Zug ein:");
+                }
+                SetConsoleColor(white: !promptForWhite);
+
+                Console.WriteLine("                                          ");
+                Console.SetCursorPosition(0, consoleBoardStart.Y + consoleBoardSize.Height + 3);
+
                 input = Console.ReadLine();
-            } while (Zug.TryParse(input));
+            } while (!Zug.TryParse(input, out z));
 
             return input;
         }
@@ -113,8 +116,8 @@ namespace SchachConsole
             //Text offset from field: x+2, y+2
             Point textCoord = new Point()
             {
-                X = figureCoord.X * 6 + consoleBoardStartXCoordinate + 2,
-                Y = figureCoord.Y * 4 + consoleBoardStartYCoordinate + 2
+                X = figureCoord.X * 6 + consoleBoardStart.X + 2,
+                Y = figureCoord.Y * 4 + consoleBoardStart.Y + 2
             };
 
             string acronym = figure.GetAcronym();
