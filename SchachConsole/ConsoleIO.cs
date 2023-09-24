@@ -7,8 +7,17 @@ namespace SchachConsole
 
     {
         //Excludes the space needed for labelling: Width+2, Height+1
+        /// <summary>
+        /// Size of the chessboard in characters excluding labelling
+        /// </summary>
         private readonly Size consoleBoardSize = new Size(49, 33);
+        /// <summary>
+        /// Top-Left starting point of chessboard in characters excluding labelling
+        /// </summary>
         private readonly Point consoleBoardStart = new Point(2, 1);
+        /// <summary>
+        /// Top-Left starting point of the first playing field for figures
+        /// </summary>
         private readonly Point firstField = new Point(3, 2);
 
         public ConsoleIO()
@@ -19,6 +28,9 @@ namespace SchachConsole
 #pragma warning restore CA1416 // Validate platform compatibility
         }
 
+        /// <summary>
+        /// Draw an empty chessboard, clearing the existing screen
+        /// </summary>
         public void DrawEmptyBoard()
         {
             Console.Clear();
@@ -73,6 +85,10 @@ namespace SchachConsole
             Console.WriteLine(new String(' ', consoleBoardSize.Width + 2));
         }
 
+        /// <summary>
+        /// Sets console fg and bg color more easily
+        /// </summary>
+        /// <param name="white">Determines whether the bg color is white (true) or black (false). Inverted for fg.</param>
         public void SetConsoleColor(bool white = true)
         {
             Console.BackgroundColor = white ? ConsoleColor.White : ConsoleColor.Black;
@@ -80,6 +96,11 @@ namespace SchachConsole
         }
 
         public string PromptInput(bool promptForWhite)
+        /// <summary>
+        /// Draws the prompt and processes player input
+        /// </summary>
+        /// <param name="promptForWhite">Determines whether to prompt for player white or black</param>
+        /// <returns>Returns the given user input, already validated for correctness</returns>
         {
             string input = "";
             Zug z;
@@ -106,6 +127,11 @@ namespace SchachConsole
             return input;
         }
 
+        /// <summary>
+        /// Draw a figure to the chessboard
+        /// </summary>
+        /// <param name="figure">The figure object to draw</param>
+        /// <param name="figureCoord">The coordinate (field index, not character index) to draw the figure to</param>
         public void DrawFigure(Figure figure, Point figureCoord)
         {
             //Text offset from field: x+2, y+2

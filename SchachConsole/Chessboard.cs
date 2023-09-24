@@ -3,10 +3,17 @@ using System.Drawing;
 
 namespace SchachConsole
 {
+    /// <summary>
+    /// The Chessboard, containing the figures and deferring player input.
+    /// Responsible for working with and drawing the chessboard.
+    /// </summary>
     public class Chessboard
     {
         private ConsoleIO co;
         public Figure[,] board { get; set; }
+        /// <summary>
+        /// Determines whether the current turn is for the white player
+        /// </summary>
         public bool isWhitesTurn { get; set; }
 
         public Chessboard()
@@ -17,6 +24,9 @@ namespace SchachConsole
             DrawBoard();
         }
 
+        /// <summary>
+        /// Initializes the chessboard with the default arrangement of chess figures
+        /// </summary>
         public void InitBoard()
         {
             //https://www.chess-poster.com/english/notes_and_facts/chess_piece_names_in_other_languages.htm
@@ -43,6 +53,9 @@ namespace SchachConsole
             };
         }
 
+        /// <summary>
+        /// Draws the chessboard and figures to the console
+        /// </summary>
         public void DrawBoard()
         {
             co.DrawEmptyBoard();
@@ -60,6 +73,9 @@ namespace SchachConsole
         }
 
         internal void NextInput()
+        /// <summary>
+        /// Process next player input and switches turns
+        /// </summary>
         {
             co.PromptInput(isWhitesTurn);
             isWhitesTurn = !isWhitesTurn;

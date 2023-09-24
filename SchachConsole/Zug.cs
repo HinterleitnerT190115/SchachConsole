@@ -2,12 +2,21 @@
 
 namespace SchachConsole
 {
+    /// <summary>
+    /// Stores a move of a figure.
+    /// Parses player input and validates moves possibility
+    /// </summary>
     public class Zug
     {
         private Point startPos, endPos;
         public Point StartPosition { get { return startPos; } }
         public Point EndPosition { get { return startPos; } }
 
+        /// <summary>
+        /// Converts a chessboard position string into an Point object
+        /// </summary>
+        /// <param name="s">The chessboard position to parse</param>
+        /// <returns>The converted Point object</returns>
         private static Point PosToPoint(string s)
         {
             Point p = new Point();
@@ -16,6 +25,11 @@ namespace SchachConsole
             return p;
         }
 
+        /// <summary>
+        /// Converts a Point object to the chessboard position string
+        /// </summary>
+        /// <param name="p">The point object</param>
+        /// <returns>The converted chessboard position string</returns>
         private static string PointToPos(Point p)
         {
             string s = "";
@@ -24,6 +38,12 @@ namespace SchachConsole
             return s;
         }
 
+        /// <summary>
+        /// Parses and validates figure move from player input
+        /// </summary>
+        /// <param name="input">Player input describing a figure move</param>
+        /// <param name="z">Output figure move as object (null if invalid)</param>
+        /// <returns>True if parsed and validated successfully, false if failure</returns>
         public static bool TryParse(string input, out Zug z)
         {
             if (string.IsNullOrEmpty(input) ||
