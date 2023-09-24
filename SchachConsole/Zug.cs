@@ -8,6 +8,7 @@ namespace SchachConsole
     /// </summary>
     public class Zug
     {
+        public static Chessboard Chessboard;
         private Point startPos, endPos;
         public Point StartPosition { get { return startPos; } }
         public Point EndPosition { get { return endPos; } }
@@ -56,7 +57,34 @@ namespace SchachConsole
             }
 
             string[] positions = input.Split('-');
-            //Try to parse int to check wether valid int.Parse(positions[0][1])
+
+            //Check whether input positions contains numbers within range and at correct positions
+            {
+                int posStart, posEnd;
+                if (int.TryParse(positions[0][1].ToString(), out posStart) &&
+                    int.TryParse(positions[1][1].ToString(), out posEnd))
+                {
+                    if (!(posStart >= 1 && posEnd <= 8 &&
+                            posEnd >= 1 && posEnd <= 8))
+                    {
+                        z = null;
+                        return false;
+                    }
+                }
+                else
+                {
+                    z = null;
+                    return false;
+                }
+            }
+
+            //Check whether input positions contains letters within range and at correct positions
+            if (!(positions[0][0] >= 'a' && positions[0][0] <= 'h' &&
+                positions[1][0] >= 'a' && positions[1][0] <= 'h'))
+            {
+                z = null;
+                return false;
+            }
 
             z = new Zug();
 

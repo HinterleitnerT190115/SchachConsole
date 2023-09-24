@@ -14,5 +14,7 @@ namespace SchachConsole.Figures
         {
             return $"{(IsWhite ? "w" : "s")} {Letter}";
         }
+
+        public abstract bool CanMove(Zug z, Figure[,] chessboard);
     }
 }
