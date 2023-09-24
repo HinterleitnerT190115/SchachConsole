@@ -6,7 +6,6 @@ namespace SchachConsole
     public class ConsoleIO
 
     {
-        //Excludes the space needed for labelling: Width+2, Height+1
         /// <summary>
         /// Size of the chessboard in characters excluding labelling
         /// </summary>
@@ -22,10 +21,9 @@ namespace SchachConsole
 
         public ConsoleIO()
         {
-#pragma warning disable CA1416 // Validate platform compatibility
+            //Fix console size so the drawing works correctly
             Console.SetWindowSize(consoleBoardSize.Width + 2, consoleBoardSize.Height + 6);
             Console.SetBufferSize(consoleBoardSize.Width + 20, consoleBoardSize.Height + 45);
-#pragma warning restore CA1416 // Validate platform compatibility
         }
 
         /// <summary>
@@ -57,7 +55,7 @@ namespace SchachConsole
                 Console.WriteLine($"{verticalLabel} " + new String('0', consoleBoardSize.Width));
             }
 
-            // Fill board with checker pattern
+            // Fill board with checkerboard pattern
             bool white = true;
             SetConsoleColor(white: white);
 
@@ -95,14 +93,14 @@ namespace SchachConsole
             Console.ForegroundColor = white ? ConsoleColor.Black : ConsoleColor.White;
         }
 
-        public string PromptInput(bool promptForWhite)
         /// <summary>
         /// Draws the prompt and processes player input
         /// </summary>
         /// <param name="promptForWhite">Determines whether to prompt for player white or black</param>
         /// <returns>Returns the given user input, already validated for correctness</returns>
+        public Zug PromptInput(bool promptForWhite)
         {
-            string input = "";
+            string input;
             Zug z;
             do
             {
@@ -124,7 +122,7 @@ namespace SchachConsole
                 input = Console.ReadLine();
             } while (!Zug.TryParse(input, out z));
 
-            return input;
+            return z;
         }
 
         /// <summary>

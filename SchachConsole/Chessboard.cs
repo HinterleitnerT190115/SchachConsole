@@ -22,6 +22,8 @@ namespace SchachConsole
             isWhitesTurn = true;
             InitBoard();
             DrawBoard();
+            //Necessary due to limitation imposed by exercise doc
+            Zug.Chessboard = this;
         }
 
         /// <summary>
@@ -29,18 +31,9 @@ namespace SchachConsole
         /// </summary>
         public void InitBoard()
         {
-            //https://www.chess-poster.com/english/notes_and_facts/chess_piece_names_in_other_languages.htm
-            /*board = new Figure[8, 8] {
-                { new Rook(), new Knight(), new Bishop(), new Queen(), new King(), new Bishop(), new Knight(), new Rook() },
-                { new Pawn(), new Pawn()  , new Pawn()  , new Pawn() , new Pawn(), new Pawn()  , new Pawn()  , new Pawn() },
-                {       null,         null,         null,        null,       null,         null,         null,       null },
-                {       null,         null,         null,        null,       null,         null,         null,       null },
-                {       null,         null,         null,        null,       null,         null,         null,       null },
-                {       null,         null,         null,        null,       null,         null,         null,       null },
-                { new Pawn(), new Pawn()  , new Pawn()  , new Pawn() , new Pawn(), new Pawn()  , new Pawn()  , new Pawn() },
-                { new Rook(), new Knight(), new Bishop(), new Queen(), new King(), new Bishop(), new Knight(), new Rook() }
-            };*/
+            //Source for figure names: https://www.chess-poster.com/english/notes_and_facts/chess_piece_names_in_other_languages.htm
             //Is rotated -90° because of array init
+            //TODO: Add color to figures constructors
             board = new Figure[8, 8] {
                 {   new Rook(), new Pawn(), null, null, null, null, new Pawn(),   new Rook() },
                 { new Knight(), new Pawn(), null, null, null, null, new Pawn(), new Knight() },
@@ -72,11 +65,12 @@ namespace SchachConsole
             }
         }
 
-        internal void NextInput()
         /// <summary>
         /// Process next player input and switches turns
         /// </summary>
+        public void NextInput()
         {
+            //TODO: Do something with input
             co.PromptInput(isWhitesTurn);
             isWhitesTurn = !isWhitesTurn;
         }

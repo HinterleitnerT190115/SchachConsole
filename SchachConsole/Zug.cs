@@ -10,7 +10,7 @@ namespace SchachConsole
     {
         private Point startPos, endPos;
         public Point StartPosition { get { return startPos; } }
-        public Point EndPosition { get { return startPos; } }
+        public Point EndPosition { get { return endPos; } }
 
         /// <summary>
         /// Converts a chessboard position string into an Point object
@@ -46,6 +46,7 @@ namespace SchachConsole
         /// <returns>True if parsed and validated successfully, false if failure</returns>
         public static bool TryParse(string input, out Zug z)
         {
+            //Check whether input is in a valid format
             if (string.IsNullOrEmpty(input) ||
                input.Length != 5 ||
                !input.Contains('-'))
@@ -63,7 +64,9 @@ namespace SchachConsole
             z.endPos = PosToPoint(positions[0]);
 
             //TODO: Check whether move is valid (aka whether movement of piece is possible)
-            //Somehow access the Chessboard, probably through public static variable since method is static and cant add parameter
+            //Since the method must be static and parameters cannot be changed,
+            //a public static variable hold the reference to the chessboard
+            Chessboard cb = Zug.Chessboard;
 
             return true;
         }
