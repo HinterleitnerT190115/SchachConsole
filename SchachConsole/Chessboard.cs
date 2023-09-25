@@ -14,29 +14,30 @@ namespace SchachConsole
 
         public Chessboard()
         {
-            InitBoard();
             IsWhitesTurn = true;
+            Board = InitNewBoard();
             DrawBoard();
         }
 
         /// <summary>
         /// Initializes the chessboard with the default arrangement of chess figures
         /// </summary>
-        public void InitBoard()
+        public static Figure[,] InitNewBoard()
         {
             //Source for figure names: https://www.chess-poster.com/english/notes_and_facts/chess_piece_names_in_other_languages.htm
             //Is rotated -90° because of array init
-            //TODO: Add color to figures constructors
-            board = new Figure[8, 8] {
-                {   new Rook(), new Pawn(), null, null, null, null, new Pawn(),   new Rook() },
-                { new Knight(), new Pawn(), null, null, null, null, new Pawn(), new Knight() },
-                { new Bishop(), new Pawn(), null, null, null, null, new Pawn(), new Bishop() },
-                {  new Queen(), new Pawn(), null, null, null, null, new Pawn(),  new Queen() },
-                {   new King(), new Pawn(), null, null, null, null, new Pawn(),   new King() },
-                { new Bishop(), new Pawn(), null, null, null, null, new Pawn(), new Bishop() },
-                { new Knight(), new Pawn(), null, null, null, null, new Pawn(), new Knight() },
-                {   new Rook(), new Pawn(), null, null, null, null, new Pawn(),   new Rook() }
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+            return new Figure[8, 8] {
+                {   new Rook(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true),   new Rook(white: true) },
+                { new Knight(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true), new Knight(white: true) },
+                { new Bishop(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true), new Bishop(white: true) },
+                {  new Queen(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true),  new Queen(white: true) },
+                {   new King(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true),   new King(white: true) },
+                { new Bishop(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true), new Bishop(white: true) },
+                { new Knight(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true), new Knight(white: true) },
+                {   new Rook(white: false), new Pawn(white: false), null, null, null, null, new Pawn(white: true),   new Rook(white: true) }
             };
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         }
 
         public void DrawBoard()
