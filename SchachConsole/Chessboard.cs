@@ -9,13 +9,11 @@ namespace SchachConsole
     /// </summary>
     public class Chessboard
     {
-        private ConsoleIO co;
         public Figure[,] Board { get; set; }
         public bool IsWhitesTurn { get; set; }
 
         public Chessboard()
         {
-            co = new ConsoleIO();
             InitBoard();
             IsWhitesTurn = true;
             DrawBoard();
@@ -45,7 +43,7 @@ namespace SchachConsole
 
         public void DrawBoard()
         {
-            co.DrawEmptyBoard();
+            ConsoleIO.DrawEmptyBoard();
 
             for (int x = 0; x < 8; x++)
             {
@@ -54,7 +52,7 @@ namespace SchachConsole
                     var figure = Board[x, y];
                     if (figure == null) continue;
 
-                    co.DrawFigure(figure, new Point(x,y));
+                    ConsoleIO.DrawFigure(figure, new Point(x,y));
                 }
             }
         }
@@ -64,8 +62,7 @@ namespace SchachConsole
         /// </summary>
         public void NextInput()
         {
-            //TODO: Do something with input
-            co.PromptInput(isWhitesTurn);
+                Zug z = ConsoleIO.PromptInput(IsWhitesTurn);
             IsWhitesTurn = !IsWhitesTurn;
         }
     }

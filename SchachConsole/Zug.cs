@@ -48,6 +48,7 @@ namespace SchachConsole
                input.Length != 5 ||
                !input.Contains('-'))
             {
+                ConsoleIO.DrawErrorMessage("Fehler: Ungültiges Format vom Zug! (z.B. a2-a3)");
                 z = null;
                 return false;
             }
@@ -62,12 +63,14 @@ namespace SchachConsole
                     if (!(posStart >= 1 && posEnd <= 8 &&
                             posEnd >= 1 && posEnd <= 8))
                     {
+                        ConsoleIO.DrawErrorMessage("Fehler: Zahl außerhalb des Bereichs 1 bis 8! (z.B. a2-a3)");
                         z = null;
                         return false;
                     }
                 }
                 else
                 {
+                    ConsoleIO.DrawErrorMessage("Fehler: Keine gültige Zahl im Zug! (z.B. a2-a3)");
                     z = null;
                     return false;
                 }
@@ -77,6 +80,7 @@ namespace SchachConsole
             if (!(positions[0][0] >= 'a' && positions[0][0] <= 'h' &&
                 positions[1][0] >= 'a' && positions[1][0] <= 'h'))
             {
+                ConsoleIO.DrawErrorMessage("Fehler: Kein gültiger Buchstabe im Zug! (z.B. a2-a3)");
                 z = null;
                 return false;
             }

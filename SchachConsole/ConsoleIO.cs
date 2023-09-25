@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace SchachConsole
 {
-    public class ConsoleIO
+    public static class ConsoleIO
 
     {
         /// <summary>
@@ -19,7 +19,7 @@ namespace SchachConsole
         /// </summary>
         private static readonly Point ConsoleBoardFirstFieldStartPos = new(3, 2);
 
-        public ConsoleIO()
+        public static void InitConsole()
         {
             //Fix console size so the drawing works correctly
             Console.SetWindowSize(ConsoleBoardSize.Width + 5, ConsoleBoardSize.Height + 9);
@@ -29,7 +29,7 @@ namespace SchachConsole
         /// <summary>
         /// Draw an empty chessboard, clearing the existing screen
         /// </summary>
-        public void DrawEmptyBoard()
+        public static void DrawEmptyBoard()
         {
             Console.Clear();
 
@@ -87,7 +87,7 @@ namespace SchachConsole
         /// Sets console fg and bg color more easily
         /// </summary>
         /// <param name="white">Determines whether the bg color is white (true) or black (false). Inverted for fg.</param>
-        public void SetConsoleColor(bool white = true)
+        public static void SetConsoleColor(bool white = true)
         {
             Console.BackgroundColor = white ? ConsoleColor.White : ConsoleColor.Black;
             Console.ForegroundColor = white ? ConsoleColor.Black : ConsoleColor.White;
@@ -98,7 +98,7 @@ namespace SchachConsole
         /// </summary>
         /// <param name="promptForWhite">Determines whether to prompt for player white or black</param>
         /// <returns>Returns the given user input, already validated for correctness</returns>
-        public Zug PromptInput(bool promptForWhite)
+        public static Zug PromptInput(bool promptForWhite)
         {
             string? input;
             Zug z;
@@ -120,9 +120,27 @@ namespace SchachConsole
                 Console.SetCursorPosition(0, ConsoleBoardStartPos.Y + ConsoleBoardSize.Height + 3);
 
                 input = Console.ReadLine() ?? "";
+                ClearMessage();
             } while (!Zug.TryParse(input, out z));
 
             return z;
+        }
+
+        public static void ClearMessage()
+        {
+
+            Console.SetCursorPosition(0, ConsoleBoardStartPos.Y + ConsoleBoardSize.Height + 5);
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("                                                              ");
+        }
+
+        public static void DrawErrorMessage(string msg)
+        {
+            Console.SetCursorPosition(0, ConsoleBoardStartPos.Y + ConsoleBoardSize.Height + 5);
+            Console.BackgroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(msg);
         }
 
         /// <summary>
@@ -130,7 +148,7 @@ namespace SchachConsole
         /// </summary>
         /// <param name="figure">The figure object to draw</param>
         /// <param name="figureCoord">The coordinate (field index, not character index) to draw the figure to</param>
-        public void DrawFigure(Figure figure, Point figureCoord)
+        public static void DrawFigure(Figure figure, Point figureCoord)
         {
             //Text offset from field: x+2, y+2
             Point textCoord = new()
