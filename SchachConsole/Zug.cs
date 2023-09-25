@@ -26,12 +26,6 @@ namespace SchachConsole
             return p;
         }
 
-        /// <summary>
-        /// Converts a Point object to the chessboard position string
-        /// </summary>
-        /// <param name="p">The point object</param>
-        /// <returns>The converted chessboard position string</returns>
-        private static string PointToPos(Point p)
         {
             string s = "";
             s += p.X + 'a';

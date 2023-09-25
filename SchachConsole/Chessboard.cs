@@ -11,9 +11,6 @@ namespace SchachConsole
     {
         private ConsoleIO co;
         public Figure[,] board { get; set; }
-        /// <summary>
-        /// Determines whether the current turn is for the white player
-        /// </summary>
         public bool isWhitesTurn { get; set; }
 
         public Chessboard()
@@ -46,9 +43,6 @@ namespace SchachConsole
             };
         }
 
-        /// <summary>
-        /// Draws the chessboard and figures to the console
-        /// </summary>
         public void DrawBoard()
         {
             co.DrawEmptyBoard();
