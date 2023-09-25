@@ -10,8 +10,8 @@ namespace SchachConsole
     {
         public static Chessboard Chessboard;
         private Point startPos, endPos;
-        public Point StartPosition { get { return startPos; } }
-        public Point EndPosition { get { return endPos; } }
+        public Point StartPos { get { return startPos; } }
+        public Point EndPos { get { return endPos; } }
 
         /// <summary>
         /// Converts a chessboard position string into an Point object
@@ -20,9 +20,11 @@ namespace SchachConsole
         /// <returns>The converted Point object</returns>
         private static Point PosToPoint(string s)
         {
-            Point p = new Point();
-            p.X = s[0] - 'a';
-            p.Y = s[1] - '0';
+            Point p = new()
+            {
+                X = s[0] - 'a',
+                Y = 8 - int.Parse(s[1].ToString())
+            };
             return p;
         }
 
@@ -54,9 +56,8 @@ namespace SchachConsole
 
             //Check whether input positions contains numbers within range and at correct positions
             {
-                int posStart, posEnd;
-                if (int.TryParse(positions[0][1].ToString(), out posStart) &&
-                    int.TryParse(positions[1][1].ToString(), out posEnd))
+                if (int.TryParse(positions[0][1].ToString(), out int posStart) &&
+                    int.TryParse(positions[1][1].ToString(), out int posEnd))
                 {
                     if (!(posStart >= 1 && posEnd <= 8 &&
                             posEnd >= 1 && posEnd <= 8))
@@ -80,10 +81,11 @@ namespace SchachConsole
                 return false;
             }
 
-            z = new Zug();
-
-            z.startPos = PosToPoint(positions[0]);
-            z.endPos = PosToPoint(positions[0]);
+            Zug tmp = new()
+            {
+                startPos = PosToPoint(positions[0]),
+                endPos = PosToPoint(positions[1])
+            };
 
             //TODO: Check whether move is valid (aka whether movement of piece is possible)
             //Since the method must be static and parameters cannot be changed,

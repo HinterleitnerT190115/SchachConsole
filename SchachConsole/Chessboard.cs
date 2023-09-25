@@ -10,14 +10,14 @@ namespace SchachConsole
     public class Chessboard
     {
         private ConsoleIO co;
-        public Figure[,] board { get; set; }
-        public bool isWhitesTurn { get; set; }
+        public Figure[,] Board { get; set; }
+        public bool IsWhitesTurn { get; set; }
 
         public Chessboard()
         {
             co = new ConsoleIO();
-            isWhitesTurn = true;
             InitBoard();
+            IsWhitesTurn = true;
             DrawBoard();
             //Necessary due to limitation imposed by exercise doc
             Zug.Chessboard = this;
@@ -51,7 +51,7 @@ namespace SchachConsole
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    var figure = board[x, y];
+                    var figure = Board[x, y];
                     if (figure == null) continue;
 
                     co.DrawFigure(figure, new Point(x,y));
@@ -66,7 +66,7 @@ namespace SchachConsole
         {
             //TODO: Do something with input
             co.PromptInput(isWhitesTurn);
-            isWhitesTurn = !isWhitesTurn;
+            IsWhitesTurn = !IsWhitesTurn;
         }
     }
 }

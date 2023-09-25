@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //Preamble
             Console.WriteLine("Bitte Konsole vergrößern und groß lassen - defekt vom neuen Windows Terminal");
@@ -10,7 +10,7 @@
             Console.Clear();
 
             //Game loop
-            Chessboard cb = new Chessboard();
+            Chessboard cb = new();
 
             while(true)
             {
