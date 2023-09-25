@@ -8,7 +8,6 @@ namespace SchachConsole
     /// </summary>
     public class Zug
     {
-        public static Chessboard Chessboard;
         private Point startPos, endPos;
         public Point StartPos { get { return startPos; } }
         public Point EndPos { get { return endPos; } }
@@ -91,11 +90,16 @@ namespace SchachConsole
                 endPos = PosToPoint(positions[1])
             };
 
-            //TODO: Check whether move is valid (aka whether movement of piece is possible)
-            //Since the method must be static and parameters cannot be changed,
-            //a public static variable hold the reference to the chessboard
-            Chessboard cb = Zug.Chessboard;
+            //Check whether start and end position is the same
+            if(tmp.StartPos == tmp.EndPos)
+            {
+                ConsoleIO.DrawErrorMessage("Fehler: Start- und Endposition im Zug ist identisch!");
+                z = null;
+                return false;
+            }
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
 
+            z = tmp;
             return true;
         }
     }

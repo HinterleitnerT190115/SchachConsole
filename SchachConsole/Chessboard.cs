@@ -17,8 +17,6 @@ namespace SchachConsole
             InitBoard();
             IsWhitesTurn = true;
             DrawBoard();
-            //Necessary due to limitation imposed by exercise doc
-            Zug.Chessboard = this;
         }
 
         /// <summary>
@@ -62,8 +60,33 @@ namespace SchachConsole
         /// </summary>
         public void NextInput()
         {
+            bool moveSuccessful = false;
+            do {
                 Zug z = ConsoleIO.PromptInput(IsWhitesTurn);
+                Figure figureToMove = Board[z.StartPos.X, z.StartPos.Y];
+                if(figureToMove == null) continue;
+
+                if(figureToMove.IsWhite != IsWhitesTurn)
+                {
+                    ConsoleIO.DrawErrorMessage("Fehler: Gegnerische Spielfigur kann nicht bewegt werden!");
+                }
+
+                if (figureToMove.CanMove(z, Board))
+                {
+                    Board[z.EndPos.X, z.EndPos.Y] = figureToMove;
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
+                    Board[z.StartPos.X, z.StartPos.Y] = null;
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+                    moveSuccessful = true;
+                } else
+                {
+                    ConsoleIO.DrawErrorMessage("Fehler: Ungültiger Zug!");
+                }
+            } while (!moveSuccessful);
+
             IsWhitesTurn = !IsWhitesTurn;
+
+            DrawBoard();
         }
     }
 }

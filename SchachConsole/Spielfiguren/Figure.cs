@@ -10,11 +10,33 @@ namespace SchachConsole.Figures
     {
         public bool IsWhite { get; set; } = true;
         public abstract char Letter { get; }
-        public string GetAcronym()
+
+        public override string ToString()
         {
             return $"{(IsWhite ? "w" : "s")} {Letter}";
         }
 
-        public abstract bool CanMove(Zug z, Figure[,] chessboard);
+        public Figure(bool white)
+        {
+            IsWhite = white;
+        }
+
+        public bool IsTargetFieldValid(Zug z, Figure[,] board)
+        {
+            Figure targetFieldFigure = board[z.EndPos.X, z.EndPos.Y];
+
+            //TODO: Special case for king 
+            //If target field figure has the same color as this figure (that should be moved), it is an invalid target
+            if (targetFieldFigure != null &&
+                targetFieldFigure.IsWhite == this.IsWhite)
+            {
+                return false;
+            };
+
+            return true;
+        }
+
+        //https://elzr.com/blag/img/2018/chess-pieces/chess-moves.png
+        public abstract bool CanMove(Zug z, Figure[,] board);
     }
 }
