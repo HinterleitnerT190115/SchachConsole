@@ -27,11 +27,15 @@ namespace SchachConsole
             return p;
         }
 
+        public Point GetRelativeMovement()
         {
-            string s = "";
-            s += p.X + 'a';
-            s += p.Y;
-            return s;
+            Point mov = new()
+            {
+                X = startPos.X - endPos.X,
+                Y = startPos.Y - endPos.Y
+            };
+
+            return mov;
         }
 
         /// <summary>
@@ -42,6 +46,7 @@ namespace SchachConsole
         /// <returns>True if parsed and validated successfully, false if failure</returns>
         public static bool TryParse(string input, out Zug z)
         {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
             //Check whether input is in a valid format
             if (string.IsNullOrEmpty(input) ||
                input.Length != 5 ||
