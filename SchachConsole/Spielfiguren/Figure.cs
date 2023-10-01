@@ -25,7 +25,6 @@ namespace SchachConsole.Figures
         {
             Figure targetFieldFigure = board[z.EndPos.X, z.EndPos.Y];
 
-            //TODO: Special case for king 
             //If target field figure has the same color as this figure (that should be moved), it is an invalid target
             if (targetFieldFigure != null &&
                 targetFieldFigure.IsWhite == this.IsWhite)
