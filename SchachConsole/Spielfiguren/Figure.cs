@@ -35,7 +35,7 @@ namespace SchachConsole.Figures
             return true;
         }
 
-        //https://elzr.com/blag/img/2018/chess-pieces/chess-moves.png
+        //Source: https://elzr.com/blag/img/2018/chess-pieces/chess-moves.png
         public abstract bool CanMove(Zug z, Figure[,] board);
     }
 }
